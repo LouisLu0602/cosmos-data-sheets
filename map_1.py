@@ -21,7 +21,7 @@ for lat, lon in zip(data['lat'], data['lon']):
 
 #Displayx
 m.save("index.html")
-display(m)
+
 
 
 
