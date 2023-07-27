@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
+import dash
 from dash import Dash, dash_table
 from dash import dcc
 from dash import html
@@ -10,8 +11,7 @@ from dash.dependencies import Input, Output, State
 import plotly.io as pio
 from selenium import webdriver
 from selenium import webdriver
-
-
+import time
 
 con = sqlite3.connect('cosmos23-testdata.db', check_same_thread=False) #create the SQLite connection with the database file
 #cur = con.cursor() #create the local cursor for the connection
@@ -35,7 +35,7 @@ fig = px.scatter_mapbox(
     lat="lat", 
     lon="lon", 
     hover_data=["id", "ph", "temperature", "tds", "do", "orp"], 
-    height=450, 
+    height=470, 
     color="Bouy", 
     mapbox_style="open-street-map"  # use open-street-map style
 )
@@ -64,13 +64,12 @@ fig.update_layout(
 
 app = Dash(__name__)
 
-
 #layout of dashboard
 app.layout = html.Div([
+
     dcc.Interval(id='interval-component', interval=1*1000, n_intervals=0),  # 1 second interval
     html.Div(id='live-update-text'),
-    html.H1("COSMOS Cluster7: Hacking for Ocean Dashboard", style={'text-align': 'center'}),
-    #division for the 3 graphs
+    html.H1("COSMOS Cluster 7: Hacking for Ocean Dashboard", style={'text-align': 'center', 'color': '#46A9FC'}),
     html.Div(style={'display': 'flex','flex-direction': 'row', 'align-items': 'center' },children=[
     html.Div(style={'display': 'grid', 	'grid-template-rows': '250px 230px',
 	'grid-template-columns': '250px 250px 250px', 'width':'50vw'}, children=[
@@ -419,7 +418,7 @@ def update(n):
             y=df_1["tds"], 
             name="tds",
             mode='lines',
-            line=dict(color="#7ff5e3"),
+            line=dict(color="#F8B902"),
         ),
     ],
     layout=go.Layout(
